@@ -20,10 +20,10 @@ export async function packageManagerExecAsync(params, { cwd } = {}) {
   const npmConfigUserAgent = process.env.npm_config_user_agent;
   if (npmConfigUserAgent?.includes('yarn')) {
     command = 'yarn';
-    args.push('exec', '--', 'npx');
+    args.push('exec', 'npx');
   } else if (npmConfigUserAgent?.includes('pnpm')) {
     command = 'pnpm';
-    args.push('exec', '--', 'npx');
+    args.push('exec', 'npx');
   } else if (npmConfigUserAgent?.includes('bun')) {
     command = 'bunx';
   } else {
