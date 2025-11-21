@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { glob } from 'glob';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -22,12 +23,10 @@ async function runAsync() {
   await commandRunner(path.join(dirname, 'expo-module-readme'));
 
   const templatesDir = path.join(dirname, '..', 'templates');
-  const templateDirents = await Array.fromAsync(
-    fs.promises.glob('**/*', {
-      cwd: templatesDir,
-      withFileTypes: true,
-    })
-  );
+  const templateDirents = await glob('**/*', {
+    cwd: templatesDir,
+    withFileTypes: true,
+  });
   const templateFiles = templateDirents
     .filter((dirent) => dirent.isFile())
     .map((dirent) => path.relative(templatesDir, path.join(dirent.parentPath, dirent.name)));

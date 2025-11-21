@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { globSync } from 'glob';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -59,7 +60,7 @@ function generateREADME() {
   readme = replaceAll('description', description, readme);
 
   if (isIOS) {
-    const podspecs = fs.globSync('{ios/**/,}*.podspec');
+    const podspecs = globSync('{ios/**/,}*.podspec');
     if (!podspecs[0])
       throw new Error(
         `The Expo module named "${packageName}" contains an "ios" directory but does not define a Podspec, which is required for modules with iOS implementations.`
@@ -97,7 +98,7 @@ function generateREADME() {
     }
     readme = replaceAll('docName', docName, readme);
     if (isAndroid) {
-      const androidPackages = fs.globSync('android/src/**/*Package.{java,kt}');
+      const androidPackages = globSync('android/src/**/*Package.{java,kt}');
       let androidPackage;
       let androidPackagePath = 'expo.modules.yourModule.YourPackage';
       let androidPackageName = 'YourPackage';
