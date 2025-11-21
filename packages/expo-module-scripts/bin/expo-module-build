@@ -14,6 +14,7 @@ let args = getArgs();
 
 // If the command is used like `yarn build plugin`, set the --build option to point to plugin/tsconfig.json
 if (EXTRA_MODULE_BUILD_TARGETS.includes(args[0])) {
+  const target = args[0];
   const targetDir = path.join(process.cwd(), args[0]);
   if (fs.existsSync(path.join(targetDir, 'tsconfig.json'))) {
     // Push the rest of the arguments minus the `plugin` arg
