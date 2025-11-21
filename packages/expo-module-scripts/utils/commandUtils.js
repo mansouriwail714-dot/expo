@@ -1,5 +1,4 @@
 import spawnAsync from '@expo/spawn-async';
-import os from 'node:os';
 
 export async function commandRunner(command, params = [], { cwd } = {}) {
   return await spawnAsync(command, params, {
@@ -22,7 +21,7 @@ export async function packageManagerExecAsync(params, { cwd } = {}) {
   if (npmConfigUserAgent?.includes('yarn')) {
     command = 'yarn';
     // yarn does not pass params after "exec" as arguments to the command, we need to pass --
-    args.push('exec', os.platform() !== 'win32' ? '--' : '', 'npx', ...params);
+    args.push('exec', '--', 'npx', ...params);
   } else if (npmConfigUserAgent?.includes('pnpm')) {
     command = 'pnpm';
     args.push('exec', 'npx', ...params);
